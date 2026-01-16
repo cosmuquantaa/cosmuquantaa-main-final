@@ -22,18 +22,22 @@ export function Navigation() {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-black/80 backdrop-blur-xl border-b border-[#00A8B5]/20' 
-          : 'bg-black'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        ? 'bg-black/80 backdrop-blur-xl border-b border-[#00A8B5]/20'
+        : 'bg-black'
+        }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
       <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <img
+            src="/logo.png"
+            alt="CosmuQuantaa Logo"
+            className="h-16 w-16 object-contain"
+          />
           <span className="text-2xl text-white font-black" style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 700 }}>
             CosmuQuantaa
           </span>
