@@ -14,12 +14,12 @@ const team = [
     bio: 'Expert in machine learning and AI architecture with 2+, pioneering cutting-edge solutions for complex business challenges.',
     linkedin: 'https://www.linkedin.com/in/k-sricharan01/'
   },
-  // {
-  //   name: 'Navneet Aman',
-  //   role: 'Head of Operations',
-  //   bio: 'Strategic operations leader ensuring seamless deployment and exceptional service delivery across all engagements.',
-  //   linkedin: 'https://www.linkedin.com/in/navneet-aman-244896149/'
-  // }
+  {
+    name: 'Venkat M',
+    role: 'Head of Operations',
+    bio: 'Strategic operations leader ensuring seamless deployment and exceptional service delivery across all engagements.',
+    // linkedin: 'https://www.linkedin.com/in/navneet-aman-244896149/'
+  }
 ];
 
 export function TeamSection() {
