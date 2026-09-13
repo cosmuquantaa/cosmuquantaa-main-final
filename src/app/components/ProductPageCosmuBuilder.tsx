@@ -1,5 +1,6 @@
-import { motion } from 'motion/react';
-import { ArrowLeft, CheckCircle2, FileText, Zap, Code, Layers, Rocket, Shield } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ArrowLeft, CheckCircle2, FileText, Zap, Code, Layers, Rocket, Shield, Cpu } from 'lucide-react';
 import FloatingLines from '@/app/components/FloatingLines';
 
 interface ProductPageProps {
@@ -7,6 +8,8 @@ interface ProductPageProps {
 }
 
 export function ProductPageCosmuBuilder({ onBack }: ProductPageProps) {
+  const [showNotice, setShowNotice] = useState(false);
+
   const features = [
     {
       icon: FileText,
@@ -26,7 +29,7 @@ export function ProductPageCosmuBuilder({ onBack }: ProductPageProps) {
     {
       icon: Zap,
       title: 'Rapid Prototyping',
-      description: 'Go from requirements to working prototype in minutes, not weeks. Perfect for validating ideas quickly.'
+      description: 'Go from requirements to working prototype with greater speed and agility. Perfect for validating ideas quickly.'
     },
     {
       icon: Shield,
@@ -41,12 +44,12 @@ export function ProductPageCosmuBuilder({ onBack }: ProductPageProps) {
   ];
 
   const benefits = [
-    'Accelerate development cycles by 10x',
+    'Accelerate development cycles and bring ideas to implementation faster',
     'Ensure requirements are accurately implemented',
     'Reduce technical debt from day one',
     'Maintain consistency across all projects',
     'Enable non-technical stakeholders to contribute',
-    'Scale your development capacity instantly'
+    'Expand development capacity efficiently'
   ];
 
   const scrollToContact = () => {
@@ -57,6 +60,15 @@ export function ProductPageCosmuBuilder({ onBack }: ProductPageProps) {
         contactSection.scrollIntoView({ behavior: 'smooth' });
       }
     }, 100);
+  };
+
+  const handleStartBuilding = () => {
+    const authUrl = import.meta.env.VITE_COSMUBUILDER_AUTH_URL || import.meta.env.VITE_AUTH_URL;
+    if (authUrl) {
+      window.location.assign(authUrl);
+    } else {
+      setShowNotice(true);
+    }
   };
 
   return (
@@ -93,14 +105,10 @@ export function ProductPageCosmuBuilder({ onBack }: ProductPageProps) {
               <ArrowLeft className="w-5 h-5" />
               Back to Home
             </motion.button>
-            
-            <div className="flex items-center gap-8">
-              <div className="text-2xl font-black text-white">Cosmu<span className="text-[#00A8B5]">Quantaa</span></div>
-            </div>
           </div>
         </div>
 
-        {/* Hero Section - Cursor-style centered layout */}
+        {/* Hero Section - Centered layout */}
         <section className="min-h-screen flex items-center justify-center px-6 lg:px-8 pt-32 pb-20">
           <div className="max-w-5xl mx-auto w-full">
             <motion.div
@@ -110,34 +118,88 @@ export function ProductPageCosmuBuilder({ onBack }: ProductPageProps) {
               transition={{ duration: 0.8 }}
             >
               <motion.div
-                className="inline-block px-4 py-2 bg-white/5 backdrop-blur-sm text-[#00A8B5] rounded-full mb-8 text-sm font-bold border border-white/10"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-sm text-[#00A8B5] rounded-full mb-8 text-sm font-bold border border-white/10"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
               >
+                <Cpu className="w-4 h-4" />
                 AI-POWERED PROJECT GENERATION
               </motion.div>
               
-              <h1 className="text-7xl md:text-8xl lg:text-9xl font-black text-white mb-8 leading-none">
-                Cosmu Builder
-              (Development)
-              </h1>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8">
+                <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white leading-none">
+                  CosmuBuilder
+                </h1>
+                <span className="px-3.5 py-1.5 bg-[#00A8B5]/20 text-[#00A8B5] border border-[#00A8B5]/40 rounded-full text-sm sm:text-base font-semibold tracking-wide uppercase">
+                  (Launching soon)
+                </span>
+              </div>
               
-              <p className="text-2xl md:text-3xl text-white/70 max-w-3xl mx-auto mb-12 leading-relaxed">
-                Transform your Software Requirements Specifications into complete, production-ready projects instantly.
+              <p className="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-12 leading-relaxed">
+                Transform your Software Requirements Specifications into complete, production-ready projects with automated precision.
               </p>
 
-              <motion.button
-                onClick={scrollToContact}
-                className="px-12 py-5 bg-white text-[#0A0B0F] rounded-lg font-bold text-xl hover:bg-white/90 transition-all duration-200"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Start Building
-              </motion.button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <motion.button
+                  onClick={handleStartBuilding}
+                  className="w-full sm:w-auto px-10 py-4 bg-white text-[#0A0B0F] rounded-lg font-bold text-lg hover:bg-white/90 transition-all duration-200 shadow-xl"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Start Building
+                </motion.button>
+                <motion.button
+                  onClick={scrollToContact}
+                  className="w-full sm:w-auto px-8 py-4 bg-white/10 text-white rounded-lg font-bold text-lg hover:bg-white/15 border border-white/20 transition-all duration-200"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Request Early Access
+                </motion.button>
+              </div>
             </motion.div>
           </div>
         </section>
+
+        {/* Launching Soon Info Modal */}
+        <AnimatePresence>
+          {showNotice && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="bg-[#12131A] border border-[#00A8B5]/30 rounded-2xl max-w-md w-full p-8 shadow-2xl text-white"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#00A8B5]/20 flex items-center justify-center mb-5 text-[#00A8B5]">
+                  <Rocket className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-black mb-2">CosmuBuilder is Launching Soon</h3>
+                <p className="text-white/75 text-sm leading-relaxed mb-6">
+                  Direct online registration has not opened yet as we finalize onboarding. You can request priority early access now to be among the first teams invited.
+                </p>
+                <div className="flex flex-col gap-3">
+                  <button
+                    onClick={() => {
+                      setShowNotice(false);
+                      scrollToContact();
+                    }}
+                    className="w-full py-3 bg-[#00A8B5] hover:bg-[#00929E] text-black font-bold rounded-lg transition-colors text-sm"
+                  >
+                    Request Early Access via Contact
+                  </button>
+                  <button
+                    onClick={() => setShowNotice(false)}
+                    className="w-full py-2.5 bg-white/10 hover:bg-white/15 text-white font-semibold rounded-lg transition-colors text-sm"
+                  >
+                    Close
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
 
         {/* Features Grid - Clean, minimal layout */}
         <section className="py-32 px-6 lg:px-8">

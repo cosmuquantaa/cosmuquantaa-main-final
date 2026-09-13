@@ -113,9 +113,14 @@ export function ProductPageQuickify({ onBack }: ProductPageProps) {
                 QUICK COMMERCE REIMAGINED
               </motion.div>
               
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 drop-shadow-2xl">
-                Quickify (In development)
-              </h1>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
+                <h1 className="text-6xl sm:text-7xl md:text-8xl font-black text-white drop-shadow-2xl">
+                  Quickify
+                </h1>
+                <span className="px-3.5 py-1.5 bg-[#5227FF]/30 text-[#FF9FFC] border border-[#FF9FFC]/40 rounded-full text-sm sm:text-base font-semibold tracking-wide uppercase">
+                  (In development)
+                </span>
+              </div>
               
               <p className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-10 leading-relaxed drop-shadow-lg">
                 Experience the future of instant commerce. Get your services delivered with AI-powered logistics and a hyperlocal network.

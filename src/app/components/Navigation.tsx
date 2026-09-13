@@ -14,7 +14,14 @@ export function Navigation() {
   }, []);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
+    let element: HTMLElement | null = null;
+    if (id === 'strategies' || id === 'strategy') {
+      element = document.getElementById('strategy') || document.getElementById('solutions');
+    } else if (id === 'solutions') {
+      element = document.getElementById('industries') || document.getElementById('solutions');
+    } else {
+      element = document.getElementById(id);
+    }
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -45,7 +52,7 @@ export function Navigation() {
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center gap-10" style={{ fontFamily: 'IBM Plex Sans, sans-serif' }}>
-          {['SOLUTIONS', 'INDUSTRIES', 'VISION', 'TEAM', 'CONTACT'].map((item, index) => (
+          {['STRATEGIES', 'SOLUTIONS', 'VISION', 'TEAM', 'CONTACT'].map((item, index) => (
             <motion.button
               key={item}
               onClick={() => scrollToSection(item.toLowerCase())}
