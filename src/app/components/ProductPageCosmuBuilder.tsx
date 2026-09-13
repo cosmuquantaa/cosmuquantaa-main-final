@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { ArrowLeft, CheckCircle2, FileText, Zap, Code, Layers, Rocket, Shield, Cpu } from 'lucide-react';
 import FloatingLines from '@/app/components/FloatingLines';
 
@@ -8,7 +7,6 @@ interface ProductPageProps {
 }
 
 export function ProductPageCosmuBuilder({ onBack }: ProductPageProps) {
-  const [showNotice, setShowNotice] = useState(false);
 
   const features = [
     {
@@ -63,12 +61,7 @@ export function ProductPageCosmuBuilder({ onBack }: ProductPageProps) {
   };
 
   const handleStartBuilding = () => {
-    const authUrl = import.meta.env.VITE_COSMUBUILDER_AUTH_URL || import.meta.env.VITE_AUTH_URL;
-    if (authUrl) {
-      window.location.assign(authUrl);
-    } else {
-      setShowNotice(true);
-    }
+    window.location.assign('https://cosmubuilder.tech/login');
   };
 
   return (
@@ -162,44 +155,6 @@ export function ProductPageCosmuBuilder({ onBack }: ProductPageProps) {
           </div>
         </section>
 
-        {/* Launching Soon Info Modal */}
-        <AnimatePresence>
-          {showNotice && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-[#12131A] border border-[#00A8B5]/30 rounded-2xl max-w-md w-full p-8 shadow-2xl text-white"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#00A8B5]/20 flex items-center justify-center mb-5 text-[#00A8B5]">
-                  <Rocket className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-black mb-2">CosmuBuilder is Launching Soon</h3>
-                <p className="text-white/75 text-sm leading-relaxed mb-6">
-                  Direct online registration has not opened yet as we finalize onboarding. You can request priority early access now to be among the first teams invited.
-                </p>
-                <div className="flex flex-col gap-3">
-                  <button
-                    onClick={() => {
-                      setShowNotice(false);
-                      scrollToContact();
-                    }}
-                    className="w-full py-3 bg-[#00A8B5] hover:bg-[#00929E] text-black font-bold rounded-lg transition-colors text-sm"
-                  >
-                    Request Early Access via Contact
-                  </button>
-                  <button
-                    onClick={() => setShowNotice(false)}
-                    className="w-full py-2.5 bg-white/10 hover:bg-white/15 text-white font-semibold rounded-lg transition-colors text-sm"
-                  >
-                    Close
-                  </button>
-                </div>
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
 
         {/* Features Grid - Clean, minimal layout */}
         <section className="py-32 px-6 lg:px-8">
